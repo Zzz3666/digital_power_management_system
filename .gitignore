@@ -56,3 +56,9 @@ dkms.conf
 
 # Build directories
 build/*
+
+# Cache directory
+.cache/*
+
+# Visual Studio Code settings
+.vscode/
