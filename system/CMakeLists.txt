@@ -11,10 +11,27 @@ option(SYSTEM_USE_THREADX "Use ThreadX as underlying RTOS" OFF)
 option(SYSTEM_USE_RTT "Use RT-Thread as underlying RTOS" OFF)
 option(SYSTEM_USE_NONE "Use no RTOS (bare metal)" OFF)
 
+# Log system options
+option(SYSTEM_LOG_ENABLE "Enable system log module" ON)
+set(SYSTEM_LOG_DEFAULT_LEVEL "3" CACHE STRING "Default log level (0=NONE, 1=ERROR, 2=WARN, 3=INFO, 4=DEBUG)")
+set(SYSTEM_LOG_ENABLE_COLOR "0" CACHE STRING "Enable colored output (0=disable, 1=enable)")
+
 # Collect all source files
 set(SYSTEM_SOURCES
     src/system.c
 )
+
+# Add log module if enabled
+if(SYSTEM_LOG_ENABLE)
+    list(APPEND SYSTEM_SOURCES src/system_log.c)
+    message(STATUS "System: Log module enabled (level=${SYSTEM_LOG_DEFAULT_LEVEL})")
+    
+    # Add log configuration definitions
+    add_definitions(-DCONFIG_LOG_DEFAULT_LEVEL=${SYSTEM_LOG_DEFAULT_LEVEL})
+    add_definitions(-DCONFIG_LOG_ENABLE_COLOR=${SYSTEM_LOG_ENABLE_COLOR})
+else()
+    message(STATUS "System: Log module disabled")
+endif()
 
 # Add OS wrapper based on selection
 if(SYSTEM_USE_FREERTOS)
