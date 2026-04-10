@@ -12,6 +12,9 @@ add_subdirectory(bsp)
 # 添加 HAL 子目录 (硬件抽象层 - 封装 BSP，依赖 BSP)
 add_subdirectory(hal)
 
+# 添加 Driver 子目录 (驱动层 - 只依赖 HAL)
+add_subdirectory(driver)
+
 # 主可执行文件
 add_executable(${PROJECT_NAME} main.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE ${HAL_LIBRARIES} ${BSP_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${DRIVER_LIBRARIES} ${HAL_LIBRARIES} ${BSP_LIBRARIES})
