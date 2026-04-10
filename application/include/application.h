@@ -1,19 +1,20 @@
 /**
  * @file application.h
  * @brief Application Layer - Top level application framework
- * 
+ *
  * This layer provides the main application logic and user-facing features.
  * It depends on System layer for OS services and Component layer for utilities.
- * 
+ *
  * Architecture: Application -> System -> Component -> Driver -> HAL -> BSP
  */
 
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <stdint.h>
-#include <stddef.h>
 #include "system.h"
+#include <stddef.h>
+#include <stdint.h>
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,82 +22,85 @@ extern "C" {
 
 /* ============================================================================
  * Application Configuration
- * ============================================================================ */
+ * ============================================================================
+ */
 
 /**
  * @brief Application configuration structure
  */
 typedef struct {
-    const char* app_name;              /**< Application name */
-    uint32_t version_major;            /**< Major version number */
-    uint32_t version_minor;            /**< Minor version number */
-    uint32_t version_patch;            /**< Patch version number */
-    size_t heap_size;                  /**< Heap size in bytes */
-    uint32_t task_stack_size;          /**< Default task stack size */
+  const char *app_name;     /**< Application name */
+  uint32_t version_major;   /**< Major version number */
+  uint32_t version_minor;   /**< Minor version number */
+  uint32_t version_patch;   /**< Patch version number */
+  size_t heap_size;         /**< Heap size in bytes */
+  uint32_t task_stack_size; /**< Default task stack size */
 } app_config_t;
 
 /**
  * @brief Application state structure
  */
 typedef struct {
-    app_config_t config;               /**< Application configuration */
-    int initialized;                   /**< Initialization flag */
-    int running;                       /**< Running flag */
-    uint32_t start_time;               /**< Application start time */
+  app_config_t config; /**< Application configuration */
+  int initialized;     /**< Initialization flag */
+  int running;         /**< Running flag */
+  uint32_t start_time; /**< Application start time */
 } app_state_t;
 
 /* ============================================================================
  * Power Management Application Types
- * ============================================================================ */
+ * ============================================================================
+ */
 
 /**
  * @brief Power management mode
  */
 typedef enum {
-    POWER_MODE_NORMAL = 0,             /**< Normal operation mode */
-    POWER_MODE_ECO,                    /**< Energy saving mode */
-    POWER_MODE_PERFORMANCE,            /**< High performance mode */
-    POWER_MODE_STANDBY,                /**< Standby mode */
-    POWER_MODE_SHUTDOWN,               /**< Shutdown mode */
+  POWER_MODE_NORMAL = 0,  /**< Normal operation mode */
+  POWER_MODE_ECO,         /**< Energy saving mode */
+  POWER_MODE_PERFORMANCE, /**< High performance mode */
+  POWER_MODE_STANDBY,     /**< Standby mode */
+  POWER_MODE_SHUTDOWN,    /**< Shutdown mode */
 } power_mode_t;
 
 /**
  * @brief Power channel status
  */
 typedef enum {
-    CHANNEL_STATUS_OFF = 0,            /**< Channel is off */
-    CHANNEL_STATUS_ON,                 /**< Channel is on */
-    CHANNEL_STATUS_FAULT,              /**< Channel has fault */
-    CHANNEL_STATUS_OVERLOAD,           /**< Channel is overloaded */
+  CHANNEL_STATUS_OFF = 0,  /**< Channel is off */
+  CHANNEL_STATUS_ON,       /**< Channel is on */
+  CHANNEL_STATUS_FAULT,    /**< Channel has fault */
+  CHANNEL_STATUS_OVERLOAD, /**< Channel is overloaded */
 } channel_status_t;
 
 /**
  * @brief Power channel information
  */
 typedef struct {
-    uint8_t channel_id;                /**< Channel ID (1-4) */
-    float voltage_mv;                  /**< Voltage in millivolts */
-    float current_ma;                  /**< Current in milliamps */
-    float power_mw;                    /**< Power in milliwatts */
-    float temperature_c;               /**< Temperature in Celsius */
-    channel_status_t status;           /**< Channel status */
-    uint32_t uptime_seconds;           /**< Channel uptime in seconds */
+  uint8_t channel_id;      /**< Channel ID (1-4) */
+  float voltage_mv;        /**< Voltage in millivolts */
+  float current_ma;        /**< Current in milliamps */
+  float power_mw;          /**< Power in milliwatts */
+  float temperature_c;     /**< Temperature in Celsius */
+  channel_status_t status; /**< Channel status */
+  uint32_t uptime_seconds; /**< Channel uptime in seconds */
 } power_channel_info_t;
 
 /**
  * @brief System health status
  */
 typedef struct {
-    float cpu_load_percent;            /**< CPU load percentage */
-    float memory_usage_percent;        /**< Memory usage percentage */
-    uint32_t total_uptime_seconds;     /**< Total system uptime */
-    uint32_t error_count;              /**< Error count */
-    uint32_t warning_count;            /**< Warning count */
+  float cpu_load_percent;        /**< CPU load percentage */
+  float memory_usage_percent;    /**< Memory usage percentage */
+  uint32_t total_uptime_seconds; /**< Total system uptime */
+  uint32_t error_count;          /**< Error count */
+  uint32_t warning_count;        /**< Warning count */
 } system_health_t;
 
 /* ============================================================================
  * Application Lifecycle API
- * ============================================================================ */
+ * ============================================================================
+ */
 
 /**
  * @brief Initialize the application
@@ -137,7 +141,8 @@ int app_is_running(void);
 
 /* ============================================================================
  * Power Management Control API
- * ============================================================================ */
+ * ============================================================================
+ */
 
 /**
  * @brief Set power management mode
@@ -184,7 +189,8 @@ int app_get_all_channels(power_channel_info_t *info, uint8_t max_channels);
 
 /* ============================================================================
  * Monitoring and Diagnostics API
- * ============================================================================ */
+ * ============================================================================
+ */
 
 /**
  * @brief Get system health status
@@ -217,7 +223,8 @@ void app_log(int level, const char *format, ...);
 
 /* ============================================================================
  * Task Management API
- * ============================================================================ */
+ * ============================================================================
+ */
 
 /**
  * @brief Create application monitoring task
@@ -239,14 +246,16 @@ task_handle_t app_create_communication_task(void);
 
 /* ============================================================================
  * Callback Functions
- * ============================================================================ */
+ * ============================================================================
+ */
 
 /**
  * @brief Power mode change callback type
  * @param old_mode Previous power mode
  * @param new_mode New power mode
  */
-typedef void (*power_mode_callback_t)(power_mode_t old_mode, power_mode_t new_mode);
+typedef void (*power_mode_callback_t)(power_mode_t old_mode,
+                                      power_mode_t new_mode);
 
 /**
  * @brief Register power mode change callback
@@ -261,9 +270,9 @@ int app_register_power_mode_callback(power_mode_callback_t callback);
  * @param old_status Previous status
  * @param new_status New status
  */
-typedef void (*channel_status_callback_t)(uint8_t channel_id, 
-                                           channel_status_t old_status,
-                                           channel_status_t new_status);
+typedef void (*channel_status_callback_t)(uint8_t channel_id,
+                                          channel_status_t old_status,
+                                          channel_status_t new_status);
 
 /**
  * @brief Register channel status change callback
