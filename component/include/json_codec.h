@@ -1,7 +1,7 @@
 /**
  * @file json_codec.h
  * @brief JSON codec component
- * 
+ *
  * Provides JSON encoding/decoding functionality.
  * This is a wrapper for third-party JSON libraries (e.g., cJSON).
  */
@@ -10,30 +10,31 @@
 #define JSON_CODEC_H
 
 #include "component.h"
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
+
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* JSON object handle */
-typedef void* json_object_t;
+typedef void *json_object_t;
 
 /* JSON value types */
 typedef enum {
-    JSON_TYPE_NULL = 0,
-    JSON_TYPE_BOOL,
-    JSON_TYPE_NUMBER,
-    JSON_TYPE_STRING,
-    JSON_TYPE_ARRAY,
-    JSON_TYPE_OBJECT,
+  JSON_TYPE_NULL = 0,
+  JSON_TYPE_BOOL,
+  JSON_TYPE_NUMBER,
+  JSON_TYPE_STRING,
+  JSON_TYPE_ARRAY,
+  JSON_TYPE_OBJECT,
 } json_type_t;
 
 /* JSON codec configuration */
 typedef struct {
-    size_t max_depth;       /* Maximum nesting depth */
-    size_t max_size;        /* Maximum JSON string size */
+  size_t max_depth; /* Maximum nesting depth */
+  size_t max_size;  /* Maximum JSON string size */
 } json_codec_config_t;
 
 /* JSON codec API */
@@ -78,7 +79,8 @@ int json_object_add_int(json_object_t obj, const char *key, int value);
  * @param value String value
  * @return 0 on success, negative error code on failure
  */
-int json_object_add_string(json_object_t obj, const char *key, const char *value);
+int json_object_add_string(json_object_t obj, const char *key,
+                           const char *value);
 
 /**
  * @brief Add boolean to JSON object
@@ -122,7 +124,8 @@ int json_object_get_int(json_object_t obj, const char *key, int *value);
  * @param size Buffer size
  * @return 0 on success, negative error code on failure
  */
-int json_object_get_string(json_object_t obj, const char *key, char *value, size_t size);
+int json_object_get_string(json_object_t obj, const char *key, char *value,
+                           size_t size);
 
 #ifdef __cplusplus
 }
