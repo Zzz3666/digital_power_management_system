@@ -17,6 +17,9 @@ int init_bsp(void) {
 
 void deinit_bsp(void) {
   printf("Deinitializing BSP...\n");
+
+  /* 反初始化平台 */
   bsp_platform_deinit();
+
   printf("BSP deinitialized.\n");
 }

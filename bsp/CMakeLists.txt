@@ -20,6 +20,8 @@ if(BSP_PLATFORM_GCC_SIMULATOR)
     
     list(APPEND BSP_SOURCES
         platforms/gcc_simulator/src/bsp_platform.c
+        platforms/gcc_simulator/src/bsp_gpio_impl.c
+        platforms/gcc_simulator/src/bsp_uart_impl.c
     )
     
     list(APPEND BSP_INCLUDE_DIRS

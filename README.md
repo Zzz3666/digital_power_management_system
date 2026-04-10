@@ -6,6 +6,13 @@
 
 ```
 digital_power_management_system/
+├── hal/                    # 硬件抽象层 (HAL)
+│   ├── CMakeLists.txt     # HAL 库构建配置
+│   ├── include/           # HAL 公共头文件
+│   ├── src/               # HAL 核心源代码
+│   ├── drivers/           # 驱动实现
+│   ├── examples/          # 示例程序
+│   └── README.md          # HAL 详细文档
 ├── bsp/                    # 板级支持包 (BSP)
 │   ├── CMakeLists.txt     # BSP 库构建配置
 │   ├── include/           # BSP 公共头文件
@@ -16,6 +23,7 @@ digital_power_management_system/
 │   └── README.md          # BSP 详细文档
 ├── main.c                  # 主应用程序
 ├── CMakeLists.txt         # 主项目构建配置
+├── ARCHITECTURE.md        # 架构设计文档
 └── build/                 # 构建输出目录
 ```
 
@@ -61,6 +69,32 @@ BSP (Board Support Package) 库提供了平台无关的硬件抽象层：
 - **易于集成**: 通过 CMake 子目录方式集成
 
 详细文档请查看 [bsp/README.md](bsp/README.md)
+
+## HAL 库
+
+HAL (Hardware Abstraction Layer) 库提供了统一的硬件访问接口：
+
+- **统一接口**: 标准化的 GPIO、UART、SPI、I2C、ADC、Timer、PWM 接口
+- **跨平台**: 同一套 API 可用于不同硬件平台
+- **模块化**: 可选择性启用需要的模块
+- **完整示例**: 包含详细的使用示例和文档
+
+详细文档请查看 [hal/README.md](hal/README.md)
+
+## 架构设计
+
+系统采用分层架构设计：
+
+```
+Application → BSP → HAL → Hardware
+```
+
+- **Application**: 应用程序层
+- **BSP**: 板级支持包，负责平台初始化和配置
+- **HAL**: 硬件抽象层，提供统一的硬件接口
+- **Hardware**: 底层硬件平台
+
+详细架构说明请查看 [ARCHITECTURE.md](ARCHITECTURE.md)
 
 ## 技术栈
 
