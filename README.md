@@ -142,14 +142,17 @@ Application → System → Component → Driver → HAL → BSP → Hardware
 
 ## 文档
 
-- [完整架构总览](ARCHITECTURE_OVERVIEW.md) - 六层架构详细说明
-- [项目总结](PROJECT_SUMMARY.md) - 项目完成情况和统计
-- [应用层文档](application/APPLICATION_LAYER.md) - 应用层 API 和使用指南
-- [系统层文档](system/SYSTEM_LAYER.md) - 系统层 RTOS 抽象说明
-- [组件层文档](component/COMPONENT_LAYER.md) - 组件层中间件封装
-- [驱动层文档](driver/DRIVER_LAYER.md) - 驱动层设备管理
-- [HAL 文档](hal/README.md) - 硬件抽象层说明
-- [BSP 文档](bsp/README.md) - 板级支持包说明
+所有详细文档已整理到 [docs](docs/) 目录：
+
+- [📚 文档索引](docs/README.md) - **完整的文档导航**（推荐）
+- [完整架构总览](docs/ARCHITECTURE_OVERVIEW.md) - 六层架构详细说明
+- [项目总结](docs/PROJECT_SUMMARY.md) - 项目完成情况和统计
+- [应用层文档](docs/APPLICATION_LAYER.md) - 应用层 API 和使用指南
+- [系统层文档](docs/SYSTEM_LAYER.md) - 系统层 RTOS 抽象说明
+- [组件层文档](docs/COMPONENT_LAYER.md) - 组件层中间件封装
+- [驱动层文档](docs/DRIVER_LAYER.md) - 驱动层设备管理
+- [HAL 文档](docs/HAL_README.md) - 硬件抽象层说明
+- [BSP 文档](docs/BSP_README.md) - 板级支持包说明
 
 ## 技术栈
 
