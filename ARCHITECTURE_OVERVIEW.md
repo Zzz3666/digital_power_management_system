@@ -6,7 +6,13 @@
 ┌─────────────────────────────────────────┐
 │         Application Layer               │  应用层 - 业务逻辑
 └────────────────┬────────────────────────┘
-                 │ 调用组件 API
+                 │ 调用系统 API
+┌────────────────▼────────────────────────┐
+│         System Layer                    │  系统层 - RTOS 抽象
+│  • Task/Mutex/Semaphore/Queue          │
+│  • OS Abstraction (FreeRTOS, etc.)     │
+└────────────────┬────────────────────────┘
+                 │ 依赖 Component
 ┌────────────────▼────────────────────────┐
 │        Component Layer                  │  组件层 - 中间件封装
 │  • JSON Codec, Modbus, MQTT, etc.      │
@@ -39,7 +45,7 @@
 ## 依赖关系链
 
 ```
-Application → Component → Driver → HAL → BSP → Hardware
+Application → System → Component → Driver → HAL → BSP → Hardware
 ```
 
 **关键原则：**
@@ -252,6 +258,19 @@ digital_power_management_system/
 │   └── examples/
 │       └── component_demo.c
 │
+├── system/                     # System 层
+│   ├── include/
+│   │   ├── system.h
+│   │   ├── freertos_wrapper.h
+│   │   └── threadx_wrapper.h
+│   ├── src/
+│   │   └── system.c
+│   ├── os/
+│   │   ├── freertos_wrapper.c
+│   │   └── threadx_wrapper.c
+│   └── examples/
+│       └── system_demo.c
+│
 ├── CMakeLists.txt              # 主构建配置
 └── main.c                      # 主程序入口
 ```
@@ -334,11 +353,13 @@ add_subdirectory(bsp)        # 最底层
 add_subdirectory(hal)        # 依赖 BSP
 add_subdirectory(driver)     # 依赖 HAL
 add_subdirectory(component)  # 依赖 Driver
+add_subdirectory(system)     # 依赖 Component
 
 # 主程序链接所有库
 target_link_libraries(${PROJECT_NAME} 
     PRIVATE 
-    ${COMPONENT_LIBRARIES}   # 最高层
+    ${SYSTEM_LIBRARIES}      # 最高层
+    ${COMPONENT_LIBRARIES}
     ${DRIVER_LIBRARIES}
     ${HAL_LIBRARIES}
     ${BSP_LIBRARIES}         # 最底层

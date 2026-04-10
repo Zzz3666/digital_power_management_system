@@ -18,6 +18,9 @@ add_subdirectory(driver)
 # 添加 Component 子目录 (组件层 - 只依赖 Driver)
 add_subdirectory(component)
 
+# 添加 System 子目录 (系统层 - 只依赖 Component)
+add_subdirectory(system)
+
 # 主可执行文件
 add_executable(${PROJECT_NAME} main.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE ${COMPONENT_LIBRARIES} ${DRIVER_LIBRARIES} ${HAL_LIBRARIES} ${BSP_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${SYSTEM_LIBRARIES} ${COMPONENT_LIBRARIES} ${DRIVER_LIBRARIES} ${HAL_LIBRARIES} ${BSP_LIBRARIES})
