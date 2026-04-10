@@ -62,3 +62,6 @@ build/*
 
 # Visual Studio Code settings
 .vscode/
+
+# AI Assistant cache
+.lingma/

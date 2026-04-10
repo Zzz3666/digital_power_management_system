@@ -14,10 +14,9 @@
 
 ### 2. 移动的文档文件（15个）
 
-#### 架构文档（3个）
+#### 架构文档（2个）
 - ✅ ARCHITECTURE_OVERVIEW.md → docs/ARCHITECTURE_OVERVIEW.md
 - ✅ ARCHITECTURE.md → docs/ARCHITECTURE.md
-- ✅ ARCHITECTURE_FIX.md → docs/ARCHITECTURE_FIX.md
 
 #### 项目文档（1个）
 - ✅ PROJECT_SUMMARY.md → docs/PROJECT_SUMMARY.md
@@ -39,10 +38,8 @@
 - ✅ hal/README.md → docs/HAL_README.md
 - ✅ hal/HAL_IMPLEMENTATION_SUMMARY.md → docs/HAL_IMPLEMENTATION_SUMMARY.md
 
-#### BSP 层文档（3个）
+#### BSP 层文档（1个）
 - ✅ bsp/README.md → docs/BSP_README.md
-- ✅ bsp/IMPLEMENTATION_SUMMARY.md → docs/IMPLEMENTATION_SUMMARY.md
-- ✅ bsp/QUICK_REFERENCE.md → docs/QUICK_REFERENCE.md
 
 ### 3. 新建文档（1个）
 
@@ -58,16 +55,16 @@
 
 | 类别 | 数量 | 文件大小 |
 |------|------|----------|
-| 架构文档 | 3 | ~34 KB |
+| 架构文档 | 2 | ~28 KB |
 | 项目文档 | 1 | ~9 KB |
 | 应用层文档 | 2 | ~17 KB |
 | 系统层文档 | 1 | ~14 KB |
 | 组件层文档 | 1 | ~11 KB |
 | 驱动层文档 | 1 | ~7 KB |
 | HAL 文档 | 2 | ~18 KB |
-| BSP 文档 | 3 | ~10 KB |
+| BSP 文档 | 1 | ~2 KB |
 | 文档索引 | 1 | ~2.5 KB |
-| **总计** | **15** | **~122 KB** |
+| **总计** | **12** | **~108 KB** |
 
 ### 目录结构
 
@@ -77,7 +74,6 @@ digital_power_management_system/
 │   ├── README.md                  ← 新增：文档索引
 │   ├── ARCHITECTURE_OVERVIEW.md   ← 移动自根目录
 │   ├── ARCHITECTURE.md            ← 移动自根目录
-│   ├── ARCHITECTURE_FIX.md        ← 移动自根目录
 │   ├── PROJECT_SUMMARY.md         ← 移动自根目录
 │   ├── APPLICATION_LAYER.md       ← 移动自 application/
 │   ├── COMPLETION_REPORT.md       ← 移动自 application/
@@ -86,9 +82,7 @@ digital_power_management_system/
 │   ├── DRIVER_LAYER.md            ← 移动自 driver/
 │   ├── HAL_README.md              ← 移动自 hal/README.md
 │   ├── HAL_IMPLEMENTATION_SUMMARY.md  ← 移动自 hal/
-│   ├── BSP_README.md              ← 移动自 bsp/README.md
-│   ├── IMPLEMENTATION_SUMMARY.md  ← 移动自 bsp/
-│   └── QUICK_REFERENCE.md         ← 移动自 bsp/
+│   └── BSP_README.md              ← 移动自 bsp/README.md
 ├── application/
 ├── system/
 ├── component/
@@ -196,7 +190,7 @@ Get-ChildItem -Path docs -Filter *.md | Select-Object Name
 - 📁 **清晰的文档结构**：所有文档集中在 docs/ 目录
 - 📚 **完整的文档索引**：docs/README.md 提供导航
 - 🔗 **更新的链接**：所有引用已修正
-- 📊 **15个文档文件**：覆盖所有层级和方面
+- 📊 **12个文档文件**：覆盖所有层级和方面
 - 💡 **易于维护**：统一的文档管理规范
 
 这使得项目更加专业、易于理解和维护，为新成员提供了良好的入门体验。
@@ -204,5 +198,5 @@ Get-ChildItem -Path docs -Filter *.md | Select-Object Name
 ---
 
 **整理完成时间**: 2026-04-10  
-**文档总数**: 15 个  
-**总大小**: ~122 KB
+**文档总数**: 12 个（核心文档）+ 5 个（补充文档）= 17 个  
+**总大小**: ~108 KB（核心）+ 其他 = ~150 KB
