@@ -1,12 +1,15 @@
-# 完整系统架构 - 五层设计
+# 完整系统架构 - 六层设计
 
 ## 架构总览
 
 ```
 ┌─────────────────────────────────────────┐
 │         Application Layer               │  应用层 - 业务逻辑
+│  • Power Management Control            │
+│  • Monitoring & Diagnostics             │
+│  • Task Management                      │
 └────────────────┬────────────────────────┘
-                 │ 调用系统 API
+                 │ 依赖 System
 ┌────────────────▼────────────────────────┐
 │         System Layer                    │  系统层 - RTOS 抽象
 │  • Task/Mutex/Semaphore/Queue          │

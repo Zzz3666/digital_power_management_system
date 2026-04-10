@@ -1,29 +1,49 @@
 # Digital Power Management System
 
-数字电源管理系统 - 一个模块化的嵌入式软件框架
+数字电源管理系统 - 一个完整的六层嵌入式软件框架
 
 ## 项目结构
 
 ```
 digital_power_management_system/
+├── application/            # 应用层 (Application Layer)
+│   ├── CMakeLists.txt     # 应用层构建配置
+│   ├── include/           # 应用层公共头文件
+│   ├── src/               # 应用层源代码
+│   ├── examples/          # 应用层示例程序
+│   └── APPLICATION_LAYER.md  # 应用层详细文档
+├── system/                 # 系统层 (System Layer)
+│   ├── CMakeLists.txt     # 系统层构建配置
+│   ├── include/           # 系统层公共头文件
+│   ├── src/               # 系统层源代码
+│   ├── os/                # RTOS 包装器
+│   ├── examples/          # 系统层示例程序
+│   └── SYSTEM_LAYER.md    # 系统层详细文档
+├── component/              # 组件层 (Component Layer)
+│   ├── CMakeLists.txt     # 组件层构建配置
+│   ├── include/           # 组件层公共头文件
+│   ├── src/               # 组件层源代码
+│   └── COMPONENT_LAYER.md # 组件层详细文档
+├── driver/                 # 驱动层 (Driver Layer)
+│   ├── CMakeLists.txt     # 驱动层构建配置
+│   ├── include/           # 驱动层公共头文件
+│   ├── src/               # 驱动层源代码
+│   └── DRIVER_LAYER.md    # 驱动层详细文档
 ├── hal/                    # 硬件抽象层 (HAL)
 │   ├── CMakeLists.txt     # HAL 库构建配置
 │   ├── include/           # HAL 公共头文件
 │   ├── src/               # HAL 核心源代码
-│   ├── drivers/           # 驱动实现
-│   ├── examples/          # 示例程序
 │   └── README.md          # HAL 详细文档
 ├── bsp/                    # 板级支持包 (BSP)
 │   ├── CMakeLists.txt     # BSP 库构建配置
 │   ├── include/           # BSP 公共头文件
 │   ├── src/               # BSP 核心源代码
 │   ├── platforms/         # 平台特定实现
-│   │   └── gcc_simulator/ # GCC 模拟器平台
-│   ├── test_bsp.c         # BSP 测试程序
 │   └── README.md          # BSP 详细文档
 ├── main.c                  # 主应用程序
 ├── CMakeLists.txt         # 主项目构建配置
-├── ARCHITECTURE.md        # 架构设计文档
+├── ARCHITECTURE_OVERVIEW.md  # 完整架构总览
+├── PROJECT_SUMMARY.md     # 项目总结
 └── build/                 # 构建输出目录
 ```
 
@@ -36,21 +56,32 @@ digital_power_management_system/
 mkdir build
 cd build
 
-# 配置项目 (使用 Ninja 生成器)
-cmake -G Ninja ..
+# 配置项目 (使用 Ninja 生成器，启用示例程序)
+cmake -G Ninja .. -DBUILD_EXAMPLES=ON
 
 # 编译
 cmake --build .
 ```
 
-### 启用 BSP 测试
+### 运行演示程序
 
 ```bash
-# 配置时启用 BSP 测试
-cmake -G Ninja .. -DBSP_BUILD_TESTS=ON
+# 应用层演示（完整功能展示）
+./application/app_demo.exe
 
-# 编译并运行测试
-cmake --build .
+# 系统层演示
+./system/system_demo.exe
+
+# 组件层演示
+./component/component_demo.exe
+
+# 驱动层演示
+./driver/driver_demo.exe
+
+# HAL 层演示
+./hal/hal_demo.exe
+
+# BSP 层演示
 ./bsp/bsp_test.exe
 ```
 
@@ -83,18 +114,42 @@ HAL (Hardware Abstraction Layer) 库提供了统一的硬件访问接口：
 
 ## 架构设计
 
-系统采用分层架构设计：
+系统采用严格的六层分层架构设计：
 
 ```
-Application → BSP → HAL → Hardware
+Application → System → Component → Driver → HAL → BSP → Hardware
 ```
 
-- **Application**: 应用程序层
-- **BSP**: 板级支持包，负责平台初始化和配置
-- **HAL**: 硬件抽象层，提供统一的硬件接口
-- **Hardware**: 底层硬件平台
+### 各层职责
 
-详细架构说明请查看 [ARCHITECTURE.md](ARCHITECTURE.md)
+| 层级 | 职责 | 关键功能 |
+|------|------|----------|
+| **Application** | 业务逻辑 | 电源管理、监控诊断、任务调度 |
+| **System** | OS 抽象 | RTOS 封装、任务/同步/通信 |
+| **Component** | 中间件 | JSON codec、协议栈封装 |
+| **Driver** | 设备驱动 | POSIX-like 设备接口 |
+| **HAL** | 硬件抽象 | 统一硬件 API |
+| **BSP** | 板级支持 | 平台特定代码 |
+| **Hardware** | 物理硬件 | MCU、外设 |
+
+### 依赖关系
+
+- ✅ 严格的单向依赖：每层只依赖直接的下层
+- ✅ 无循环依赖：确保架构清晰可维护
+- ✅ 模块化设计：每层独立编译和测试
+
+详细架构说明请查看 [ARCHITECTURE_OVERVIEW.md](ARCHITECTURE_OVERVIEW.md)
+
+## 文档
+
+- [完整架构总览](ARCHITECTURE_OVERVIEW.md) - 六层架构详细说明
+- [项目总结](PROJECT_SUMMARY.md) - 项目完成情况和统计
+- [应用层文档](application/APPLICATION_LAYER.md) - 应用层 API 和使用指南
+- [系统层文档](system/SYSTEM_LAYER.md) - 系统层 RTOS 抽象说明
+- [组件层文档](component/COMPONENT_LAYER.md) - 组件层中间件封装
+- [驱动层文档](driver/DRIVER_LAYER.md) - 驱动层设备管理
+- [HAL 文档](hal/README.md) - 硬件抽象层说明
+- [BSP 文档](bsp/README.md) - 板级支持包说明
 
 ## 技术栈
 

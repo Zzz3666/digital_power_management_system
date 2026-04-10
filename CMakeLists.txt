@@ -21,6 +21,9 @@ add_subdirectory(component)
 # 添加 System 子目录 (系统层 - 只依赖 Component)
 add_subdirectory(system)
 
+# 添加 Application 子目录 (应用层 - 只依赖 System)
+add_subdirectory(application)
+
 # 主可执行文件
 add_executable(${PROJECT_NAME} main.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE ${SYSTEM_LIBRARIES} ${COMPONENT_LIBRARIES} ${DRIVER_LIBRARIES} ${HAL_LIBRARIES} ${BSP_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${APPLICATION_LIBRARIES} ${SYSTEM_LIBRARIES} ${COMPONENT_LIBRARIES} ${DRIVER_LIBRARIES} ${HAL_LIBRARIES} ${BSP_LIBRARIES})
