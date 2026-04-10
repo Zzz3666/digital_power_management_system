@@ -12,6 +12,9 @@
 ### 项目总结
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - **项目完成情况和统计**
 
+### 测试与质量
+- [COVERAGE_TESTING.md](COVERAGE_TESTING.md) - **代码覆盖率测试指南**
+
 ## 📖 各层详细文档
 
 ### 应用层 (Application Layer)
@@ -63,7 +66,8 @@
 | 驱动层文档 | 1 |
 | HAL 文档 | 2 |
 | BSP 文档 | 3 |
-| **总计** | **13** |
+| 测试与质量 | 1 |
+| **总计** | **14** |
 
 ## 🔗 相关链接
 
@@ -76,3 +80,10 @@
 - 最后更新：2026-04-10
 - 维护者：开发团队
 - 如有文档问题，请提交 Issue 或 Pull Request
+
+## 🛠️ 工具脚本
+
+在 `scripts/` 目录中提供了一些便捷的工具脚本：
+
+- [coverage_test.bat](scripts/coverage_test.bat) - Windows 覆盖率测试脚本
+- [coverage_test.sh](scripts/coverage_test.sh) - Linux/macOS 覆盖率测试脚本

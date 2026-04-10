@@ -153,6 +153,7 @@ Application → System → Component → Driver → HAL → BSP → Hardware
 - [驱动层文档](docs/DRIVER_LAYER.md) - 驱动层设备管理
 - [HAL 文档](docs/HAL_README.md) - 硬件抽象层说明
 - [BSP 文档](docs/BSP_README.md) - 板级支持包说明
+- [代码覆盖率测试](docs/COVERAGE_TESTING.md) - 覆盖率测试配置和使用指南
 
 ## 技术栈
 
