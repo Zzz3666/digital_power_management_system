@@ -27,6 +27,7 @@ add_subdirectory(system)
 # 添加 Application 子目录 (应用层 - 只依赖 System)
 add_subdirectory(application)
 
-# 主可执行文件
+# 主可执行文件 - 只依赖应用层
+# 应用层会通过传递性依赖自动链接所有底层库
 add_executable(${PROJECT_NAME} main.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE ${APPLICATION_LIBRARIES} ${SYSTEM_LIBRARIES} ${COMPONENT_LIBRARIES} ${DRIVER_LIBRARIES} ${HAL_LIBRARIES} ${BSP_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${APPLICATION_LIBRARIES})

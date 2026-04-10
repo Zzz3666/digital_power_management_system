@@ -26,8 +26,9 @@ target_include_directories(application
 )
 
 # Link with System library (Application depends on System)
+# Use PUBLIC because application.h includes system.h
 if(TARGET system)
-    target_link_libraries(application PRIVATE system)
+    target_link_libraries(application PUBLIC system)
     message(STATUS "Application: Linked with System library")
 else()
     message(WARNING "Application: System library not found")
