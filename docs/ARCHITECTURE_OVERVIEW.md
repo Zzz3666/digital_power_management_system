@@ -56,6 +56,115 @@ Application → System → Component → Driver → HAL → BSP → Hardware
 - 下层不知道上层的存在
 - 每层只依赖直接的下层
 
+## HAL 与 BSP 的设计原则
+
+### 正确的依赖关系
+
+```
+✅ 正确: HAL 依赖 BSP (HAL 封装 BSP 接口)
+❌ 错误: BSP 依赖 HAL (BSP 调用 HAL 接口)
+```
+
+### 职责划分
+
+#### BSP (Board Support Package) - 底层实现
+
+**职责：**
+- 提供平台特定的原始硬件访问接口
+- 直接与硬件寄存器或驱动交互
+- 实现具体的硬件操作
+
+**特点：**
+- 平台相关（不同平台有不同的实现）
+- 接口简单直接
+- 不包含复杂的逻辑
+- **不依赖 HAL**
+
+**示例接口：**
+```c
+// BSP GPIO 接口 (底层、原始)
+int bsp_gpio_init(uint8_t port, uint8_t pin, uint8_t mode);
+void bsp_gpio_write(uint8_t port, uint8_t pin, uint8_t state);
+uint8_t bsp_gpio_read(uint8_t port, uint8_t pin);
+```
+
+#### HAL (Hardware Abstraction Layer) - 上层封装
+
+**职责：**
+- 封装 BSP 提供的底层接口
+- 提供统一的、跨平台的 API
+- 添加额外的功能（超时控制、错误处理、数据转换等）
+
+**特点：**
+- 平台无关（同一套 API 用于所有平台）
+- 接口友好、易用
+- 包含业务逻辑和抽象
+- **依赖 BSP**
+
+**示例接口：**
+```c
+// HAL GPIO 接口 (高级、统一)
+int hal_gpio_init(uint8_t port, const hal_gpio_config_t *config);
+void hal_gpio_write(uint8_t port, hal_gpio_pin_t pin, uint8_t state);
+uint8_t hal_gpio_read(uint8_t port, hal_gpio_pin_t pin);
+```
+
+### 调用流程示例
+
+```c
+// 应用层代码
+hal_gpio_write(0, GPIO_PIN_5, 1);  // 调用 HAL
+    ↓
+// HAL 层实现 (hal/src/hal_gpio.c)
+void hal_gpio_write(uint8_t port, hal_gpio_pin_t pin, uint8_t state) {
+    bsp_gpio_write(port, (uint8_t)pin, state);  // HAL 调用 BSP
+        ↓
+    // BSP 层实现 (bsp/platforms/xxx/src/bsp_gpio_impl.c)
+    void bsp_gpio_write(uint8_t port, uint8_t pin, uint8_t state) {
+        // 实际的硬件寄存器操作
+    }
+}
+```
+
+### CMake 依赖配置
+
+```cmake
+# BSP CMakeLists.txt - BSP 不依赖 HAL
+add_library(bsp STATIC ${BSP_SOURCES})
+
+# HAL CMakeLists.txt - HAL 依赖 BSP
+add_library(hal STATIC ${HAL_SOURCES})
+target_link_libraries(hal PRIVATE bsp)  # HAL 链接 BSP
+```
+
+### 为什么这样设计？
+
+1. **分层抽象**：应用开发者只需关心 "我要控制 GPIO"，不需要知道底层如何实现
+2. **可移植性**：切换平台时只需更换 BSP，HAL 和应用代码无需修改
+3. **职责清晰**：BSP 负责平台实现，HAL 负责接口抽象
+4. **易于测试**：可以单独测试每一层，HAL 测试时可以 Mock BSP
+
+### 常见误区
+
+| 错误做法 | 正确做法 |
+|---------|----------|
+| BSP 调用 HAL 函数 | HAL 调用 BSP 函数 |
+| 应用直接使用 BSP | 应用使用 HAL 接口 |
+| BSP 包含 HAL 头文件 | HAL 包含 BSP 头文件 |
+
+**类比说明：**
+```
+HAL = 汽车的方向盘、油门、刹车 (统一的操作接口)
+BSP = 不同车型的传动系统 (平台特定的实现)
+Hardware = 发动机、轮子 (物理硬件)
+
+驾驶员 (应用) → 操作方向盘 (HAL) → 传动系统 (BSP) → 车轮转动 (Hardware)
+
+- 驾驶员不需要知道是前驱还是后驱 (BSP 的细节)
+- 方向盘的操作方式对所有车都一样 (HAL 的统一接口)
+- 但不同车的传动系统可能不同 (BSP 的平台差异)
+```
+
 ## 各层职责
 
 ### 1. BSP (Board Support Package) - 板级支持包

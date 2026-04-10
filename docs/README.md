@@ -6,8 +6,8 @@
 
 ### 核心架构
 - [ARCHITECTURE_OVERVIEW.md](ARCHITECTURE_OVERVIEW.md) - **完整六层架构总览**（推荐首先阅读）
+  - 包含 HAL 与 BSP 的设计原则和依赖关系说明
 - [ARCHITECTURE.md](ARCHITECTURE.md) - 架构设计详细说明
-- [ARCHITECTURE_FIX.md](ARCHITECTURE_FIX.md) - 架构修正记录
 
 ### 项目总结
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - **项目完成情况和统计**
