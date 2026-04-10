@@ -9,8 +9,6 @@
 #ifndef FREERTOS_WRAPPER_H
 #define FREERTOS_WRAPPER_H
 
-#include "system.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

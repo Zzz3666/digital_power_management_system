@@ -7,10 +7,10 @@
  */
 
 #include "json_codec.h"
+#include "component.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 
 /* Simple JSON object structure for simulation */
 typedef struct {

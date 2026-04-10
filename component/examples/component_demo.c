@@ -12,8 +12,6 @@
 #include "json_codec.h"
 #include "modbus_protocol.h"
 #include <stdio.h>
-#include <string.h>
-
 
 int main(void) {
   printf("========================================\n");

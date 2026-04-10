@@ -6,11 +6,10 @@
  */
 
 #include "uart_driver.h"
+#include "driver.h"
 #include "hal_uart.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-
 
 /* Maximum UART devices */
 #define MAX_UART_DEVICES 4
@@ -137,6 +136,7 @@ static ssize_t uart_write(driver_handle_t handle, const void *buffer,
 }
 
 static int uart_control(driver_handle_t handle, int cmd, void *arg) {
+  (void)arg; // Suppress unused parameter warning
   if (handle < 0 || handle >= uart_device_count) {
     return -1;
   }

@@ -5,7 +5,6 @@
 
 #include "bsp_gpio.h"
 #include <stdio.h>
-#include <string.h>
 
 /* 模拟器中的 GPIO 状态存储 */
 static uint16_t gpio_output_state[16] = {0}; /* 16个端口 */

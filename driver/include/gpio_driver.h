@@ -9,7 +9,7 @@
 #ifndef GPIO_DRIVER_H
 #define GPIO_DRIVER_H
 
-#include "driver.h"
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {

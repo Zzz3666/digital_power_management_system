@@ -8,7 +8,6 @@
 
 #include "threadx_wrapper.h"
 #include <stdio.h>
-#include <string.h>
 
 static int threadx_initialized = 0;
 

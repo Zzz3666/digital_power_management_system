@@ -6,11 +6,10 @@
  */
 
 #include "gpio_driver.h"
+#include "driver.h"
 #include "hal_gpio.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-
 
 /* Maximum GPIO devices */
 #define MAX_GPIO_DEVICES 16
@@ -152,6 +151,7 @@ static ssize_t gpio_write(driver_handle_t handle, const void *buffer,
 }
 
 static int gpio_control(driver_handle_t handle, int cmd, void *arg) {
+  (void)arg; // Suppress unused parameter warning
   if (handle < 0 || handle >= gpio_device_count) {
     return -1;
   }

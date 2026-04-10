@@ -12,8 +12,6 @@
 #include "json_codec.h"
 #include "system.h"
 #include <stdio.h>
-#include <string.h>
-
 
 /* Example task function */
 void example_task(void *argument) {

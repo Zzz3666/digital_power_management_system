@@ -8,7 +8,6 @@
 
 #include "freertos_wrapper.h"
 #include <stdio.h>
-#include <string.h>
 
 static int freertos_initialized = 0;
 

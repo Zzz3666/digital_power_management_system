@@ -7,11 +7,8 @@
  */
 
 #include "application.h"
-#include "component.h"
 #include "json_codec.h"
 #include <stdio.h>
-#include <stdlib.h>
-
 
 /* ============================================================================
  * Callback Functions

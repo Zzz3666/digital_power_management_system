@@ -4,8 +4,10 @@
  */
 
 #include "hal.h"
+#include <stdint.h>
 #include <stdio.h>
 #include <time.h>
+
 
 #define HAL_VERSION "1.0.0"
 

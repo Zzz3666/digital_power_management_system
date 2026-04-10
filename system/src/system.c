@@ -12,7 +12,6 @@
 #include <string.h>
 #include <time.h>
 
-
 /* System state */
 typedef struct {
   system_config_t config;
@@ -84,6 +83,7 @@ uint32_t system_get_uptime_ms(void) {
 task_handle_t system_task_create(const char *name, task_function_t func,
                                  void *argument, size_t stack_size,
                                  task_priority_t priority) {
+  (void)argument; // Suppress unused parameter warning
   if (!sys_state.initialized || !name || !func) {
     return SYSTEM_INVALID_TASK;
   }

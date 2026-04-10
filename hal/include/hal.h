@@ -13,18 +13,8 @@ extern "C" {
 #endif
 
 #include <stddef.h>
-#include <stdint.h>
-
 
 /* HAL 模块包含 */
-#include "hal_adc.h"
-#include "hal_gpio.h"
-#include "hal_i2c.h"
-#include "hal_pwm.h"
-#include "hal_spi.h"
-#include "hal_timer.h"
-#include "hal_uart.h"
-
 
 /**
  * @brief HAL 状态码

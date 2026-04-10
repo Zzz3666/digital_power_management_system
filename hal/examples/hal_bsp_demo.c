@@ -10,9 +10,10 @@
 
 #include "bsp.h"
 #include "hal.h"
+#include "hal_gpio.h"
+#include "hal_uart.h"
 #include <stdio.h>
 #include <string.h>
-
 
 void gpio_demo(void) {
   printf("\n=== GPIO Demo (HAL wraps BSP) ===\n");

@@ -9,10 +9,7 @@
 #ifndef JSON_CODEC_H
 #define JSON_CODEC_H
 
-#include "component.h"
 #include <stddef.h>
-#include <stdint.h>
-
 
 #ifdef __cplusplus
 extern "C" {

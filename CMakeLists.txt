@@ -3,6 +3,9 @@ project(DigitalPowerManagementSystem C)
 
 set(CMAKE_C_STANDARD 11)
 
+# Enable building examples
+option(BUILD_EXAMPLES "Build example programs" ON)
+
 # 生成 compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 

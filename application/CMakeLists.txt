@@ -69,6 +69,12 @@ if(BUILD_EXAMPLES)
     # Application demo executable
     add_executable(app_demo examples/app_demo.c)
     target_link_libraries(app_demo PRIVATE application system component driver hal bsp)
+    
+    # Add component layer include directory for app_demo
+    target_include_directories(app_demo PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/../component/include
+    )
+    
     set_target_properties(app_demo PROPERTIES
         OUTPUT_NAME "app_demo"
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/application

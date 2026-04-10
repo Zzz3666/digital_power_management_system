@@ -6,7 +6,14 @@
  */
 
 #include "hal.h"
+#include "hal_adc.h"
+#include "hal_gpio.h"
+#include "hal_i2c.h"
+#include "hal_pwm.h"
+#include "hal_timer.h"
+#include "hal_uart.h"
 #include <stdio.h>
+
 
 /* 定时器回调函数示例 */
 void timer_callback_example(void *arg) {
